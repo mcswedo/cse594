@@ -14,13 +14,18 @@
          height:100%; 
          overflow:hidden;
       }
+	  canvas {
+		 border-style: solid;
+		 border-width: 5px;
+	  }
    </style>
 </head>
 
 <body>
    <canvas id="canvas" width="250" height="450"></canvas>
    <script type="text/javascript" src="Cell.js"></script>
-   <script type="text/javascript" src="Block.js"></script> 
+   <script type="text/javascript" src="Block.js"></script>
+   <script type="text/javascript" src="BlockTypes.js"></script> 
    <script type="text/javascript"> 
 
       var CELL_SIZE = 25;
@@ -28,8 +33,7 @@
       var canvas = document.getElementById('canvas');
       var ctx = canvas.getContext('2d');
       var inactiveBlocks = [];
-      var blockType = Math.floor(Math.random() * 7)
-      var activeBlock = new Block(Math.floor(Math.random() * 7));
+      var activeBlock = new Block();
       var cellPicture = new Image();
 
       cellPicture.src = 'cell.png';
@@ -41,6 +45,18 @@
 
       activeBlock.draw();
 
+	  function doKeyDown(evt) {
+		if(evt.keyCode === 37) { //Left Arrow
+	      activeBlock.moveLeft();
+		}
+		if(evt.keyCode === 39) { //Right Arrow
+			activeBlock.moveRight();
+		}
+		if(evt.keyCode === 32) { //Spacebar
+			activeBlock.rotate();
+		}
+	  }
+	  
       var interval = setInterval(function() {
          clearGrid();
          
@@ -52,14 +68,17 @@
             activeBlock.drop();
          } else {
             inactiveBlocks.push(activeBlock);
-            activeBlock = new Block(Math.floor(Math.random() * 7));
+            activeBlock = new Block();
             if (activeBlock.canDrop() === false) {
                clearInterval(interval);
+			   alert('Game Over!');
             }
          }
          activeBlock.draw();
      }, INTERVAL);
 
+	 window.addEventListener('keydown', doKeyDown, true);
+	 
    </script>
 
 </body>

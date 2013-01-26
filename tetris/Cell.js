@@ -1,5 +1,5 @@
 //Cell.js
-//Original by David Turner, edits and additions by Michael Swedo and Deanna Sulli
+//Original by David Turner, edits and additions by Michael Swedo, Deanna Sulli, and Zac Fuller
 
 function Cell(x, y) {
    this.x = x;
@@ -12,5 +12,12 @@ Cell.prototype.draw = function() {
 
 Cell.prototype.drop = function() {
    ++this.y;
-}
+};
 
+Cell.prototype.moveLeft = function() {
+	--this.x;
+};
+
+Cell.prototype.moveRight = function() {
+		++this.x;
+};
