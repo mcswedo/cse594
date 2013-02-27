@@ -20,6 +20,7 @@
             draw();
         }
         if (e.keyCode == 40) { //Down Arrow
+            downIsPressed = true;
             increaseSpeed();
             draw();
         }
@@ -27,6 +28,7 @@
 
     $(document).keyup(function(e){
         if (e.keyCode == 40) {
+          downIsPressed = false;
           resetSpeed();
         }
     });

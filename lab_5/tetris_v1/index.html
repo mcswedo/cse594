@@ -108,6 +108,8 @@
     var INTERVAL = 500; // milliseconds
 	  var OLD_INTERVAL = INTERVAL;
 
+    var downIsPressed = false; //means to keep track of whether or not the down arrow is pressed. Glitch fix for levelUp.
+    
 	  //main game screen canvas
     var canvas = document.getElementById('main-canvas');
     var ctx = canvas.getContext('2d');
@@ -253,6 +255,7 @@
     }
 
     function levelUp() { //increases the speed of the game by 5% plus a literal 5 ms. Called when rows > 10, 20, 30, etc.
+      if (downIsPressed) INTERVAL = OLD_INTERVAL;
       if(level < 10) {
         INTERVAL = INTERVAL - (INTERVAL * .05) - 5;
         OLD_INTERVAL = INTERVAL;
